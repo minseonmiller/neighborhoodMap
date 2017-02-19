@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Neighborhood Map</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+
+  </head>
+  <body>
+     <div id="wrapper">
+      <!-- side bar start -->
+      <div class="aside" id="sidebar-wrapper">
+        <!-- dropdown menu -->
+        <div class="dropdown" id="dropdown_style">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Neighborhood Map Filter</button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" data-bind="foreach: filters">
+            <li><a href="#" data-bind="text: $data.type, click: $root.filterClick"></a></li>
+          </ul>
+        </div>
+        <!-- marker list -->
+        <div class="markerListHolder">
+          <ul id ="markerList" data-bind="foreach: locations">
+            <!--"text: name and Style are in self.locations array level, but list Item click is out side of self.locations array, so by using $root.(which is viewmodel) it is designating proper level to look to-->
+            <li data-bind="text: name, style: { color: selected() ? 'red' : 'black'}, click: $root.listItemClick, visible: value()"></li>
+          </ul>
+        </div>
+      </div>
+        <!-- hamburger menu -->
+        <nav class="navbar navbar-default navbar-fixed-top">
+             <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
+        </nav>
+      <!-- map -->
+      <div class="main" id="map_wrapper">
+      <div id="map_canvas" class="mapping"></div>
+      </div>
+      <!--Reference -->
+      <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h4>Reference list</h4>
+                        <li>https://startbootstrap.com/template-overviews/simple-sidebar</li>
+                        <li>https://discussions.udacity.com/t/map-project-responsive/208857</li>
+                        <li>https://wrightshq.com/playground/placing-multiple-markers-on-a-google-map-using-api-3</li>
+                    </div>
+                </div>
+            </div>
+      </div>
+
+    <!--Knockout link -->
+    <script src="js/knockout-3.4.1.js"></script>
+    <!--jQuery link -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDJJurn0-6dPezxsjYCd2hMwMsDOvkxwTs&callback=initialize"
+      async defer onerror="mapError()"></script>
+
+  </body>
+</html>
