@@ -2,7 +2,7 @@
 It includes 6 places in Orlando area, you can filter these locations by clicking filters.
 To try out NeighborhoodMap, you may need to download project file from my Github page.
 
-1. Click download button on https://github.com/minseonmiller/neighborhoodMap and extrace files.
+1. Click download button on https://github.com/minseonmiller/neighborhoodMap and extract files.
 2. Double click Neighborhood map view.html file to open via browser.
 3. Enjoy!
  
