@@ -1,11 +1,12 @@
-jQuery(function($) {
-    // Asynchronously Load the map API
-    var script = document.createElement('script');
-    script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDJJurn0-6dPezxsjYCd2hMwMsDOvkxwTs&callback=initialize";
-    document.body.appendChild(script);
-});
+
+// Error handling
+function mapError() {
+        alert("Map could Not Be Loaded");
+    };
+
 
 function initialize() {
+//initialize = () => {
     var map;
     var bounds = new google.maps.LatLngBounds();
     var mapOptions = {
@@ -14,6 +15,7 @@ function initialize() {
     // Display a map on the page
     map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
     map.setTilt(45);
+
     // Info Window Content
     var infoWindowContent = [
         ['<div class="info_content">' +
@@ -61,8 +63,13 @@ function initialize() {
                             '<p>' + article.snippet + '</p>'+ '</li></div>';
                         infoWindow.setContent(nytContent);
                     };
-                }).error(function(e){ //error handler
-                    nytContent += 'New York Times Articles Could Not Be Loaded</div>';
+                })//.error(function(e){ //error handler
+                    //nytContent += '<br/><br/>New York Times Articles Could Not Be Loaded</div>';
+                    //infoWindow.setContent(nytContent);
+                //})
+                    .fail(function(e){
+                        nytContent += '<br/><br/><p style="color:red;"">New York Times Articles Could Not Be Loaded</p></div>';
+                        infoWindow.setContent(nytContent);
                 });
 
             infoWindow.open(map, marker);
@@ -137,12 +144,18 @@ function viewModel() {
     self.filterClick = function(filter) {
         console.log(filter.type);
         for ( i = 0; i < self.locations().length; i++){
-            if (filter.type == 'Display all')
+            if (filter.type == 'Display all') {
                 self.locations()[i].value(true);
-            else if (self.locations()[i].type == filter.type)
+                self.locations()[i].marker.setVisible(true);
+            }
+            else if (self.locations()[i].type == filter.type) {
                 self.locations()[i].value(true);
-            else
+                self.locations()[i].marker.setVisible(true);
+            }
+            else {
                 self.locations()[i].value(false);
+                self.locations()[i].marker.setVisible(false);
+            }
         }
     }
 }
@@ -151,7 +164,7 @@ var vm = new viewModel();
 //Without this Knockout does not work
 ko.applyBindings(vm);
 
-//Hamberger button - sidebar folding
+//Hamburger button - sidebar folding
 $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
